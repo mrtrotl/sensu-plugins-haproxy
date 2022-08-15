@@ -9,7 +9,7 @@ rvm:
 notifications:
   email:
     recipients:
-    - sensu-plugin@sensu-plugins.io
+    - daniel.golka@emplifi.io 
     on_success: change
     on_failure: always
 script:
@@ -19,16 +19,6 @@ script:
 before_deploy:
 - bash -c "[ ! -d bonsai/ ] && git clone https://github.com/sensu/sensu-go-bonsai-asset.git bonsai || echo 'bonsai/ exists, skipping git clone'"
 deploy:
-- provider: rubygems
-  api_key:
-    secure: EMGor8yb5YaFIzI0tdVW4x13X5X52edofGhW+aHFulAeTDPkPYJbQwZQlTae266ZGE32gi52p/A99m4PTrbvKoWphc2njkxM3q6JEk1zJprzei1wVYneqaRTaiqOwMpehqDCzRblbOiQWn3bhr3KEgPn0Bvaw4+LIPfitPhWixE=
-  gem: sensu-plugins-haproxy
-  on:
-    tags: true
-    all_branches: true
-    rvm: 2.3.0
-    rvm: 2.4.1
-    repo: sensu-plugins/sensu-plugins-haproxy
 - provider: script
   script: bonsai/ruby-runtime/travis-build-ruby-plugin-assets.sh sensu-plugins-haproxy
   skip_cleanup: true
